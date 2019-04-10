@@ -1,2 +1,7 @@
-# retrieval-based-question-answering-system
-实现基于相似度匹配和检索的问答系统
+# retrieval-based-question-answering-system   
+实现基于相似度匹配和检索的问答系统   
+## 1.基于输入问题和已知问题的余弦相似度进行搜索，选出匹配度最高的五个候选问题，返回它们的答案    
+## 2.有两种实现方式，一种是基于tfidf的余弦相似度，一种是基于平均词向量的余弦相似度，显然词向量的准确度为更高，排序更加准确，因为考虑了上下文信息   
+data目录包含问题和答案的json文件，词向量文件太大没有上传，可以下载到，在https://nlp.stanford.edu/projects/glove/   
+src目录包含两种不同的实现方式   
+test目录包含一个简单的测试文件   
