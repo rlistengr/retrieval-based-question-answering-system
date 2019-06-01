@@ -5,12 +5,12 @@
 
 既然是基于检索的系统，那么系统的重点就在于<问题，答案>的知识库，在这个库中搜索用户输入问题最相似的问题，返回top K答案即可。
 
-比如，在知识库中存在以下几个<问题，答案>：
+比如，在知识库中存在以下几个<问题，答案>：   
 
-<"贪心学院主要做什么方面的业务？”， “他们主要做人工智能方面的教育”>
-<“国内有哪些做人工智能教育的公司？”， “贪心学院”>
-<"人工智能和机器学习的关系什么？", "其实机器学习是人工智能的一个范畴，很多人工智能的应用要基于机器学习的技术">
-<"人工智能最核心的语言是什么？"， ”Python“>....
+<"贪心学院主要做什么方面的业务？”， “他们主要做人工智能方面的教育”>   
+<“国内有哪些做人工智能教育的公司？”， “贪心学院”>   
+<"人工智能和机器学习的关系什么？", "其实机器学习是人工智能的一个范畴，很多人工智能的应用要基于机器学习的技术">   
+<"人工智能最核心的语言是什么？"， ”Python“>....   
 
 假设一个用户往系统中输入了问题 “贪心学院是做什么的？”， 系统需要去匹配最相近的“已经存在库里的”问题。 那在这里很显然是 “贪心学院是做什么的”和“贪心学院主要做什么方面的业务？”是最相近的。 所以当我们定位到这个问题之后，直接返回它的答案 “他们主要做人工智能方面的教育”就可以了。 所以这里的核心问题可以归结为计算两个问句（query）之间的相似度。
 
@@ -26,17 +26,17 @@
 
 基于tf-idf的接口是top5results_invidx("Who is White's daughter")，括号中的是问题
 
-基于词向量的接口是top5results_emb("Who is White's daughter")
+基于词向量的接口是top5results_emb("Who is White's daughter")   
 
-> \> python test.py
-> test tfidf
-> question:Who is White's daughter
-> ['Coronis', 'Daphne', 'impossible', 'Dr. Madeline Swann', 'impossible']
-> test embedded
-> question:Who is White's daughter
-> ['Dr. Madeline Swann', 'Coronis', 'Daphne', 'Auguste Clésinger.', '17']
-> question:which company verify contents of the leaked information
-> ['Eon Productions', 'impossible', 'Hans von Herwarth', 'Sony Pictures Entertainment', 'impossible']   
+> \> python test.py   
+> test tfidf   
+> question:Who is White's daughter   
+> ['Coronis', 'Daphne', 'impossible', 'Dr. Madeline Swann', 'impossible']   
+> test embedded   
+> question:Who is White's daughter   
+> ['Dr. Madeline Swann', 'Coronis', 'Daphne', 'Auguste Clésinger.', '17']   
+> question:which company verify contents of the leaked information   
+> ['Eon Productions', 'impossible', 'Hans von Herwarth', 'Sony Pictures Entertainment', 'impossible']      
 
 进入test目录，运行test.py即可，该脚本会自动加载问答系统，并对输入的问题和需要检索的方式返回对应的结果，以上对问题”Who is White's daughter“分别使用了tf-idf相似度和embedding相似度的测试，两者返回答案有所重叠，但是排序结果不一样，在问题库中实际答案是“Dr. Madeline Swann”，所以词向量方式的准确率更加精准。
 
@@ -104,16 +104,16 @@ data下有多个主题，每个主题有多个子主题，每个子主题又有�
 
 比如对于问题“Who is White's daughter”，得到的top5结果如下：
 
-Who was the daughter of Phlegyas?
-Coronis
-Who was the daughter of Peneus?
-Daphne
-Who was the daughter of Hind?
-impossible
-Who is White's daughter?
-Dr. Madeline Swann
-What was the name of Minamato's daughter?
-impossible
+Who was the daughter of Phlegyas?   
+Coronis   
+Who was the daughter of Peneus?   
+Daphne   
+Who was the daughter of Hind?   
+impossible   
+Who is White's daughter?   
+Dr. Madeline Swann   
+What was the name of Minamato's daughter?   
+impossible   
 
 由于之前的一些预处理导致名字因为词频过滤已经被过滤掉了，停用词也被过滤掉，所以计算相似度时只要有who 和daughter的相似度都是1。而且排序时，先计算相似度的总是排在后计算相似度的前面，导致了问题的出现。
 
@@ -125,16 +125,16 @@ impossible
 
 词向量方式的检索问答系统精度高于td-idf向量方式的检索问答系统。比如还是问题“Who is White's daughter”；结果如下：
 
-Who is White's daughter?
-Dr. Madeline Swann
-Who was the daughter of Phlegyas?
-Coronis
-Who was the daughter of Peneus?
-Daphne
-Who was the fortune hunter engaged to Sand's daughter?
-Auguste Clésinger.
-How old was Victoria's oldest daughter when she was amrried?
-17
+Who is White's daughter?   
+Dr. Madeline Swann   
+Who was the daughter of Phlegyas?   
+Coronis   
+Who was the daughter of Peneus?   
+Daphne   
+Who was the fortune hunter engaged to Sand's daughter?   
+Auguste Clésinger.   
+How old was Victoria's oldest daughter when she was amrried?   
+17   
 
 ### 总结
 
